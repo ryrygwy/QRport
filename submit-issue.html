@@ -31,17 +31,17 @@
     document.getElementById('issueForm').addEventListener('submit', function(e) {
       e.preventDefault();
       
-      const existingData = JSON.parse(localStorage.getItem('fixora_data') || '[]');
+      let existingData = JSON.parse(localStorage.getItem('fixora_data') || '[]');
       
-      // Fixed Sequential logic: 
-      // It finds the highest ticket number ever used and adds 1.
-      let lastTicketNum = 0;
-      if (existingData.length > 0) {
-        const ticketNumbers = existingData.map(item => parseInt(item.ticket.replace('#', '')));
-        lastTicketNum = Math.max(...ticketNumbers);
+      // Safety Check: If data looks like the old randomized format, clear it to start over
+      const isOldData = existingData.some(item => parseInt(item.ticket.replace('#', '')) > 1000);
+      if (isOldData) {
+          existingData = [];
+          localStorage.removeItem('fixora_data');
       }
-      
-      const nextTicketNumber = lastTicketNum + 1;
+
+      // Sequential logic: ID is simply current count + 1
+      const nextTicketNumber = existingData.length + 1;
 
       const newReport = {
         ticket: "#" + nextTicketNumber,
