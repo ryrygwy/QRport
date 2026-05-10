@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixora | Submit Issue</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+  <div class="login-card">
+    <h1 style="color: #6c5ce7; margin-bottom: 5px;">Fixora</h1>
+    <h2>Report an Issue</h2>
+    <p style="color: #666;">Enter details to log a defect</p>
+    
+    <form id="issueForm" class="form-left">
+        <label>Location</label>
+        <input type="text" id="location" placeholder="e.g., Classroom 204" required>
+        
+        <label>Description</label>
+        <textarea id="description" placeholder="Describe the issue..." rows="5" required></textarea>
+        
+        <button type="submit">Submit Issue</button>
+    </form>
+
+    <div style="margin-top: 20px;">
+      <a href="dashboard.html" style="text-decoration: none; color: #666; font-weight: bold;">← Back to Dashboard</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('issueForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const existingData = JSON.parse(localStorage.getItem('fixora_data') || '[]');
+      
+      // Fixed Sequential logic: 
+      // It finds the highest ticket number ever used and adds 1.
+      let lastTicketNum = 0;
+      if (existingData.length > 0) {
+        const ticketNumbers = existingData.map(item => parseInt(item.ticket.replace('#', '')));
+        lastTicketNum = Math.max(...ticketNumbers);
+      }
+      
+      const nextTicketNumber = lastTicketNum + 1;
+
+      const newReport = {
+        ticket: "#" + nextTicketNumber,
+        location: document.getElementById('location').value,
+        description: document.getElementById('description').value,
+        date: new Date().toLocaleDateString(),
+        status: 'Pending'
+      };
+
+      existingData.unshift(newReport);
+      localStorage.setItem('fixora_data', JSON.stringify(existingData));
+
+      alert("Ticket " + newReport.ticket + " submitted successfully!");
+      window.location.href = "dashboard.html";
+    });
+  </script>
+</body>
+</html>

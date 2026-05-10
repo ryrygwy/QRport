@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fixora | Reported Issues</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <span>FIXORA</span>
+    <a href="dashboard.html">Dashboard</a>
+  </nav>
+
+  <main class="dashboard">
+    <h2>Reporting History</h2>
+    <p class="subtitle">Complete log of all campus issues.</p>
+    <div id="historyList"></div>
+  </main>
+
+  <script>
+    const issues = JSON.parse(localStorage.getItem('fixora_data') || '[]');
+    const container = document.getElementById('historyList');
+
+    if(issues.length === 0) {
+      container.innerHTML = "<p style='text-align:center; opacity:0.6;'>No issues reported yet.</p>";
+    } else {
+      issues.forEach(item => {
+        container.innerHTML += `
+          <div class="issue-item">
+            <h3 style="color:#fff;">Ticket ${item.ticket}: ${item.location}</h3>
+            <p style="opacity:0.9;">${item.description}</p>
+            <small style="opacity:0.5;">Reported: ${item.date}</small>
+          </div>
+        `;
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,44 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fixora | Dashboard</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- Top Navigation -->
   <nav class="navbar">
-    <span>Fixora</span>
+    <span>FIXORA</span>
     <a href="index.html">Log Out</a>
   </nav>
 
-  <!-- Dashboard Main -->
   <main class="dashboard">
-    <h2>Welcome back</h2>
-    <p class="subtitle">
-      Track, manage, and resolve campus issues efficiently.
-    </p>
+    <h2>Main Dashboard</h2>
+    <p class="subtitle">Streamlining facility reporting.</p>
 
-    <!-- Dashboard Cards -->
-    <div class="cards">
-      <div class="card">
-        <h3>📋 Reported Issues</h3>
-        <p>View all submitted maintenance requests across campus.</p>
-      </div>
+    <div class="cards-vertical">
+      <a href="submit-issue.html" class="card-link">
+        <div class="card">
+          <span style="font-size: 2rem;">➕</span>
+          <div>
+            <h3>Submit Issue</h3>
+            <p>Log a new lab or facility defect.</p>
+          </div>
+        </div>
+      </a>
 
-      <div class="card">
-        <h3>➕ Submit Issue</h3>
-        <p>Log a new issue with location and description.</p>
-      </div>
+      <a href="reported-issues.html" class="card-link">
+        <div class="card">
+          <span style="font-size: 2rem;">📋</span>
+          <div>
+            <h3>Reported Issues</h3>
+            <p>View the history of all facility logs.</p>
+          </div>
+        </div>
+      </a>
 
-      <div class="card">
-        <h3>✅ Issue Status</h3>
-        <p>Monitor progress from pending to resolved.</p>
-      </div>
+      <a href="issues-status.html" class="card-link">
+        <div class="card">
+          <span style="font-size: 2rem;">✅</span>
+          <div>
+            <h3>Issue Status</h3>
+            <p>Track the progress of active repairs.</p>
+          </div>
+        </div>
+      </a>
     </div>
   </main>
-
 </body>
 </html>
