@@ -1,36 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
   <title>Fixora | Dashboard</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dashboard-page"> 
   <nav class="navbar">
+  <div class="nav-brand">
+    <img src="logo.png" alt="Fixora Logo" class="nav-logo">
     <span>FIXORA</span>
-    <a href="index.html">Log Out</a>
-  </nav>
+  </div>
+  <a href="#" onclick="logout()">Log Out</a>
+</nav>
 
   <main class="dashboard">
-    <h2>Main Dashboard</h2>
-    <p class="subtitle">Streamlining facility reporting at STI Dasmariñas.</p>
+    <div class="dashboard-header">
+      <h2>Main Dashboard</h2>
+      <p class="subtitle">Streamlining facility reporting at STI Dasmariñas.</p>
+    </div>
 
-    <div class="cards-vertical">
+    <div class="dashboard-vertical">
       <a href="submit-issue.html" class="card-link">
-        <div class="card">
-          <span style="font-size: 2rem;">➕</span>
-          <div>
+        <div class="card vertical-row">
+          <span class="icon">➕</span>
+          <div class="card-content">
             <h3>Submit Issue</h3>
-            <p>Log a new lab or facility defect.</p>
+            <p>Log a new lab or facility defect instantly.</p>
           </div>
         </div>
       </a>
 
       <a href="reported-issues.html" class="card-link">
-        <div class="card">
-          <span style="font-size: 2rem;">📋</span>
-          <div>
+        <div class="card vertical-row">
+          <span class="icon">📋</span>
+          <div class="card-content">
             <h3>Reported Issues</h3>
             <p>View the history of all facility logs.</p>
           </div>
@@ -38,9 +43,9 @@
       </a>
 
       <a href="issues-status.html" class="card-link">
-        <div class="card">
-          <span style="font-size: 2rem;">✅</span>
-          <div>
+        <div class="card vertical-row">
+          <span class="icon">✅</span>
+          <div class="card-content">
             <h3>Issue Status</h3>
             <p>Track the progress of active repairs.</p>
           </div>
@@ -48,5 +53,23 @@
       </a>
     </div>
   </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Fixora. All rights reserved.</p>
+  </footer>
+
+  <script>
+  function logout() {
+    // This removes ONLY the reported issues data
+    localStorage.removeItem('fixora_data'); 
+    
+    // Optional: If you want to clear EVERYTHING (including login status)
+    localStorage.clear(); 
+
+    // Redirect to the login/index page
+    window.location.href = "index.html";
+  }
+  </script>
+
 </body>
 </html>

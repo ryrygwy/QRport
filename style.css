@@ -1,28 +1,178 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+/* Ensure the body can grow and doesn't trap the footer */
+html, body {
+  height: auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Base Colors */
+/* Dashboard Centering Fix */
+.dashboard {
+  flex: 1; /* Pushes footer to the bottom if content is short */
+  text-align: center; /* Centers the H2 and Subtitle */
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dashboard-header {
+  margin-bottom: 40px;
+}
+
+.dashboard h2 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+/* Brighter Purple Background */
 body {
-  background: linear-gradient(180deg, #0b0b0b, #2a003f);
-  color: #e0e0e0;
+  /* Rich 3-stop gradient */
+  background: linear-gradient(135deg, #0b001a 0%, #4b0082 50%, #7b2cbf 100%);
+  background-attachment: fixed; /* CRITICAL: Prevents the background from stretching/breaking */
+  color: #f0f0f0;
 }
 
-/* Logo */
+/* Footer Fix: Ensures it is part of the scroll, not fixed */
+.site-footer {
+  background: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.5);
+  padding: 30px;
+  text-align: center;
+  width: 100%;
+  margin-top: auto; /* Keeps it at the bottom of the page content */
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Vertical Button Adjustments */
+.dashboard-vertical {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Ensure the card container handles the layout properly */
+.card.vertical-row {
+  display: flex;
+  align-items: center;   /* Vertical centering of emoji and text */
+  text-align: left;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: 0.3s ease;
+  width: 100%;           /* Fill the container */
+}
+
+.card.vertical-row:hover {
+  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #bb86fc; /* Accent highlight */
+}
+
+/* Remove that pesky blue link styling again just in case */
+.card-link {
+  text-decoration: none !important;
+  color: inherit;
+  display: block;
+}
+
+/* Optional: Ensure the text doesn't turn purple/blue after being clicked */
+.card-link:visited {
+  color: inherit;
+}
+
+/* Prevent emoji squishing and fix size */
+.icon {
+  font-size: 2.5rem;      /* Make it large */
+  margin-right: 25px;    /* Space between emoji and text */
+  flex-shrink: 0;        /* CRITICAL: Prevents the emoji from compressing */
+  min-width: 50px;       /* Ensures consistent alignment */
+  text-align: center;    /* Keeps emoji centered in its space */
+  line-height: 1;        /* Prevents weird vertical spacing */
+}
+
+/* The text container */
+.card-content {
+  flex: 1;               /* Takes up the remaining space after the emoji */
+}
+
+.card-content h3 {
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.card-content p {
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+/* Existing Navbar and Logo styles maintained for consistency */
+.navbar {
+  padding: 15px 30px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #fff; /* Fixed: was dark grey */
+  font-size: 0.9rem;
+  transition: opacity 0.3s;
+}
+
+.navbar a:hover {
+  opacity: 0.7;
+}
+
+/* Navbar Branding Layout */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Space between logo and text */
+}
+
+.nav-logo {
+  height: 35px; /* Adjust height to match navbar scale */
+  width: auto;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+}
+
+.navbar span {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Ensure the navbar itself stays balanced */
+.navbar {
+  padding: 10px 30px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 3. Hero Section */
+.hero {
+  background: transparent; /* Let the body gradient shine through */
+  color: #eaeaea;
+  text-align: center;
+  padding: 100px 20px 80px; /* Added a bit more top padding for breathing room */
+}
+
 .logo {
   width: 120px;
   margin-bottom: 20px;
-}
-
-/* Hero */
-.hero {
-  background: linear-gradient(135deg, #0f0f0f, #4b0082);
-  color: #eaeaea;
-  text-align: center;
-  padding: 80px 20px;
 }
 
 .hero h1 {
@@ -36,153 +186,46 @@ body {
   color: #d0d0d0;
 }
 
-.hero-buttons {
-  margin-top: 25px;
-}
-
-/* Buttons */
+/* 4. Buttons */
 .cta {
   display: inline-block;
-  padding: 12px 25px;
-  border-radius: 25px;
+  padding: 14px 30px; /* Made slightly larger for a better click target */
+  border-radius: 30px;
   text-decoration: none;
   font-weight: bold;
-  transition: 0.3s ease;
-  margin: 0 8px;
+  transition: all 0.3s ease;
+  margin: 8px;
+  
+  /* Primary Button Styling (Applied by default) */
+  background: #ffffff;
+  color: #1a0033; /* Deep purple text to tie into the theme */
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15); /* Soft white glow */
+  border: 2px solid transparent;
 }
 
-.cta.primary {
-  background: #666;
-  color: white;
+.cta:hover {
+  background: #bb86fc; /* Electric purple hover state */
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(187, 134, 252, 0.4); /* Purple glow on hover */
 }
 
-.cta.primary:hover {
-  background: #555;
-}
-
+/* Secondary Button Styling (Request a Demo) */
 .cta.secondary {
   background: transparent;
-  color: #eaeaea;
-  border: 2px solid #eaeaea;
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.4); /* Slightly muted white border */
+  box-shadow: none;
 }
 
 .cta.secondary:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1); /* Frosted glass hover effect */
+  border-color: #ffffff;
+  color: #ffffff;
+  transform: translateY(-2px);
 }
 
-/* Sections */
-section {
-  padding: 60px 20px;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(4px);
-}
-
-.features {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.about {
-  background: rgba(0, 0, 0, 0.25);
-}
-
-.contact {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-/* Cards */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
-  margin-top: 30px;
-}
-
-
-.card {
-  background: #1e1e1e;
-  color: #e0e0e0;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
-}
-
-/* Contact */
-.contact {
-  background: #2f0b65;
-}
-
-/* Footer */
-footer {
-  background: #111;
-  color: #888;
-  padding: 18px;
-  text-align: center;
-  font-size: 0.9rem;
-}
-
-/* Login Page */
-.login-body {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #0f0f0f, #4b0082);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-card {
-  background: #f7f7f7;
-  padding: 40px;
-  width: 320px;
-  border-radius: 16px;
-  text-align: center;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-}
-
-.login-card h1 {
-  color: #333;
-}
-
-.login-card p {
-  color: #666;
-  margin-bottom: 20px;
-}
-
-.login-card input {
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background: #fafafa;
-}
-
-.login-card button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 12px;
-  border: none;
-  border-radius: 25px;
-  background: #666;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.login-card button:hover {
-  background: #555;
-}
-
-.alt-login {
-  margin-top: 20px;
-}
-
-.alt {
-  width: 100%;
-  margin-top: 8px;
-  background: #dedede;
-  color: #333;
-}
+/* 5. Video Preview Section (The Split Layout) */
 .split-section {
   padding: 80px 10%;
   background: transparent;
@@ -191,15 +234,14 @@ footer {
 .split-container {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start; /* Keeps text and video aligned at the top */
+  align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  gap: 60px; /* Space between text and video */
+  gap: 60px;
 }
 
-/* Left Side: Text Column */
 .text-column {
-  flex: 1; /* Takes up all available space on the left */
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -221,17 +263,18 @@ footer {
   line-height: 1.7;
   color: #cccccc;
 }
-/* Right Side: Balanced Medium Size */
+
 .video-column {
-  flex: 0 0 550px; /* Increased to be 'just right' */
+  flex: 0 0 550px;
 }
 
 .video-frame {
-  background: #000000; /* Black Rounded Rectangle */
+  background: #000000;
   border-radius: 25px;
   padding: 8px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .video-frame video {
@@ -240,26 +283,263 @@ footer {
   display: block;
 }
 
-/* 2. Mobile Layout (Stacked) */
+/* 6. Features & Cards */
+section {
+  padding: 80px 20px;
+  text-align: center;
+  /* Removed the default background here so it doesn't block the gradient */
+}
+
+.features { 
+  background: transparent; 
+}
+
+.about { 
+  /* Subtle glassmorphism band */
+  background: rgba(255, 255, 255, 0.03); 
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.contact { 
+  background: transparent; 
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.card {
+  background: #1e1e1e;
+  color: #e0e0e0;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+/* 7. Login Page (Glassmorphism Fix) */
+.login-body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0f0f, #4b0082);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.05); /* Fixed: Was solid white */
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  width: 320px;
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+
+.login-card h1 { color: #fff; }
+.login-card p { color: #ccc; margin-bottom: 20px; }
+
+.login-card input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+}
+
+.login-card button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 25px;
+  background: #eee;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.alt-login { margin-top: 20px; }
+
+.alt {
+  width: 100%;
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+/* 8. Footer */
+footer {
+  background: #111;
+  color: #888;
+  padding: 18px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* 9. Mobile Layout */
 @media (max-width: 850px) {
   .split-container {
-    flex-direction: column; /* Moves video to the bottom on phones */
-    align-items: center;
+    flex-direction: column;
     text-align: center;
     gap: 40px;
   }
 
-  .text-column {
-    text-align: center;
-  }
-
-  .transparent-block {
-    text-align: center;
-  }
+  .text-column, .transparent-block { text-align: center; }
 
   .video-column {
     flex: 0 0 auto;
     width: 100%;
-    max-width: 350px; /* Keeps it small even on mobile */
+    max-width: 450px;
   }
+  
+  .navbar { flex-direction: column; gap: 10px; }
+}
+
+/* Specific styling for the Report Form Card */
+.report-card {
+    width: 100% !important;
+    max-width: 500px !important; /* Wider than the login card */
+    padding: 40px;
+}
+
+/* Style for Textarea to match your inputs */
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    font-family: inherit;
+    resize: none; /* Keeps the UI clean */
+}
+
+/* The Submit Button */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 25px;
+    background: #fff;
+    color: #1a0033;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    background: #bb86fc;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Back Link Styling */
+.back-link {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.back-link:hover {
+    color: #fff;
+}
+
+/* Styling for History Cards */
+.issue-card {
+    text-align: left;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.issue-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.ticket-id {
+    font-weight: bold;
+    color: #bb86fc; /* Purple accent */
+    font-size: 0.9rem;
+}
+
+.status-badge {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.issue-desc {
+    color: #ccc;
+    margin: 10px 0;
+    font-size: 0.95rem;
+}
+
+.issue-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 10px;
+    margin-top: 10px;
+    opacity: 0.5;
+}
+
+/* Progress Tracker Styling */
+.status-card {
+    text-align: left;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.status-text {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.progress-container {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 1s ease-in-out; /* Makes the bar "slide" into place */
+    box-shadow: 0 0 10px rgba(187, 134, 252, 0.3);
+}
+
+.status-card h3 {
+    font-size: 1.1rem;
+    color: #fff;
+    margin-top: 5px;
 }

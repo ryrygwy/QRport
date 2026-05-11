@@ -6,35 +6,73 @@
   <title>Fixora | Issue Status</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dashboard-page">
+
   <nav class="navbar">
-    <span>FIXORA</span>
-    <a href="dashboard.html">Dashboard</a>
+    <div class="nav-brand">
+      <img src="logo.png" alt="Fixora Logo" class="nav-logo">
+      <span>FIXORA</span>
+    </div>
+    <a href="dashboard.html">Back to Dashboard</a>
   </nav>
 
   <main class="dashboard">
-    <h2>Active Status</h2>
-    <p class="subtitle">Real-time progress of your tickets.</p>
-    <div id="statusList"></div>
+    <div class="dashboard-header">
+      <h2>Active Status</h2>
+      <p class="subtitle">Real-time progress of your tickets at STI Dasmariñas.</p>
+    </div>
+
+    <div id="statusList" class="dashboard-vertical">
+      </div>
   </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Fixora. All rights reserved.</p>
+  </footer>
 
   <script>
     const issues = JSON.parse(localStorage.getItem('fixora_data') || '[]');
     const container = document.getElementById('statusList');
 
     if(issues.length === 0) {
-      container.innerHTML = "<p style='text-align:center; opacity:0.6;'>No active tickets found.</p>";
+      container.innerHTML = `
+        <div class="card" style="text-align:center; opacity:0.6;">
+          <p>No active tickets found. Report an issue to see its progress.</p>
+        </div>`;
     } else {
-      issues.forEach(item => {
-        container.innerHTML += `
-          <div class="issue-item">
-            <strong>${item.location} (Ticket ${item.ticket})</strong>
-            <p style="font-size:0.9rem; margin: 5px 0;">${item.description}</p>
-            <span class="status-badge">${item.status}</span>
+      container.innerHTML = issues.map(item => {
+        // Logic to determine bar width based on status
+        let progressWidth = "15%";
+        let statusColor = "#ffb703"; // Yellow for Pending
+        
+        if(item.status === "In Progress") {
+            progressWidth = "50%";
+            statusColor = "#bb86fc"; 
+        } else if(item.status === "Resolved") {
+            progressWidth = "100%";
+            statusColor = "#03dac6"; // Teal for Success
+        }
+
+        return `
+          <div class="card status-card">
+            <div class="issue-header">
+              <span class="ticket-id">${item.ticket}</span>
+              <span class="status-text" style="color: ${statusColor}">${item.status}</span>
+            </div>
+            <h3>${item.location}</h3>
+            
+            <div class="progress-container">
+              <div class="progress-bar" style="width: ${progressWidth}; background: ${statusColor}"></div>
+            </div>
+            
+            <div class="issue-footer">
+               <small>Last updated: ${item.date}</small>
+            </div>
           </div>
         `;
-      });
+      }).join('');
     }
+
   </script>
 </body>
 </html>

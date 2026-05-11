@@ -6,26 +6,37 @@
     <title>Fixora | Submit Issue</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="login-body">
-  <div class="login-card">
-    <h1 style="color: #6c5ce7; margin-bottom: 5px;">Fixora</h1>
-    <h2>Report an Issue</h2>
-    <p style="color: #666;">Enter details to log a defect</p>
-    
-    <form id="issueForm" class="form-left">
-        <label>Location</label>
-        <input type="text" id="location" placeholder="e.g., Classroom 204" required>
-        
-        <label>Description</label>
-        <textarea id="description" placeholder="Describe the issue..." rows="5" required></textarea>
-        
-        <button type="submit">Submit Issue</button>
-    </form>
-
-    <div style="margin-top: 20px;">
-      <a href="dashboard.html" style="text-decoration: none; color: #666; font-weight: bold;">← Back to Dashboard</a>
+<body class="dashboard-page"> <nav class="navbar">
+    <div class="nav-brand">
+      <img src="logo.png" alt="Fixora Logo" class="nav-logo">
+      <span>FIXORA</span>
     </div>
-  </div>
+    <a href="dashboard.html">Back to Dashboard</a>
+  </nav>
+
+  <main class="dashboard">
+    <div class="login-card report-card"> <h2 style="color: #fff; margin-bottom: 10px;">Report an Issue</h2>
+      <p style="color: #ccc; margin-bottom: 25px;">Enter details to log a defect for STI Dasmariñas</p>
+      
+      <form id="issueForm" class="form-left">
+          <label style="display: block; text-align: left; margin-bottom: 5px; color: #fff;">Location</label>
+          <input type="text" id="location" placeholder="e.g., Classroom 204" required>
+          
+          <label style="display: block; text-align: left; margin-bottom: 5px; color: #fff; margin-top: 15px;">Description</label>
+          <textarea id="description" placeholder="Describe the issue..." rows="5" required></textarea>
+          
+          <button type="submit" class="submit-btn">Submit Issue</button>
+      </form>
+
+      <div style="margin-top: 25px;">
+        <a href="dashboard.html" class="back-link">← Back to Dashboard</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Fixora. All rights reserved.</p>
+  </footer>
 
   <script>
     document.getElementById('issueForm').addEventListener('submit', function(e) {
@@ -33,13 +44,6 @@
       
       let existingData = JSON.parse(localStorage.getItem('fixora_data') || '[]');
       
-      // Safety Check: If data looks like the old randomized format, clear it to start over
-      const isOldData = existingData.some(item => parseInt(item.ticket.replace('#', '')) > 1000);
-      if (isOldData) {
-          existingData = [];
-          localStorage.removeItem('fixora_data');
-      }
-
       // Sequential logic: ID is simply current count + 1
       const nextTicketNumber = existingData.length + 1;
 
@@ -57,6 +61,7 @@
       alert("Ticket " + newReport.ticket + " submitted successfully!");
       window.location.href = "dashboard.html";
     });
+
   </script>
 </body>
 </html>

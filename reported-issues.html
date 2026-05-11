@@ -6,35 +6,56 @@
   <title>Fixora | Reported Issues</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dashboard-page">
+
   <nav class="navbar">
-    <span>FIXORA</span>
-    <a href="dashboard.html">Dashboard</a>
+    <div class="nav-brand">
+      <img src="logo.png" alt="Fixora Logo" class="nav-logo">
+      <span>FIXORA</span>
+    </div>
+    <a href="dashboard.html">Back to Dashboard</a>
   </nav>
 
   <main class="dashboard">
-    <h2>Reporting History</h2>
-    <p class="subtitle">Complete log of all campus issues.</p>
-    <div id="historyList"></div>
+    <div class="dashboard-header">
+      <h2>Reporting History</h2>
+      <p class="subtitle">Complete log of all campus issues at STI Dasmariñas.</p>
+    </div>
+
+    <div id="historyList" class="dashboard-vertical">
+      </div>
   </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Fixora. All rights reserved.</p>
+  </footer>
 
   <script>
     const issues = JSON.parse(localStorage.getItem('fixora_data') || '[]');
     const container = document.getElementById('historyList');
 
     if(issues.length === 0) {
-      container.innerHTML = "<p style='text-align:center; opacity:0.6;'>No issues reported yet.</p>";
+      container.innerHTML = `
+        <div class="card" style="text-align:center; opacity:0.6;">
+          <p>No issues reported yet. Your history will appear here.</p>
+        </div>`;
     } else {
-      issues.forEach(item => {
-        container.innerHTML += `
-          <div class="issue-item">
-            <h3 style="color:#fff;">Ticket ${item.ticket}: ${item.location}</h3>
-            <p style="opacity:0.9;">${item.description}</p>
-            <small style="opacity:0.5;">Reported: ${item.date}</small>
+      // Use map and join for better performance
+      container.innerHTML = issues.map(item => `
+        <div class="card issue-card">
+          <div class="issue-header">
+            <span class="ticket-id">${item.ticket}</span>
+            <span class="status-badge">${item.status}</span>
           </div>
-        `;
-      });
+          <h3>${item.location}</h3>
+          <p class="issue-desc">${item.description}</p>
+          <div class="issue-footer">
+            <small>Reported on: ${item.date}</small>
+          </div>
+        </div>
+      `).join('');
     }
+
   </script>
 </body>
 </html>
