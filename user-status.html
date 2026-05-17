@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QRPort | My Ticket Status</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-page">
+  <nav class="navbar">
+    <div class="nav-brand">
+      <img src="logo.png" alt="QRPort Logo" class="nav-logo">
+      <span>QRPort</span>
+    </div>
+    <a href="user-dashboard.html">Reporter Portal</a>
+  </nav>
+
+  <main class="dashboard">
+    <div class="dashboard-header">
+      <h2>Ticket Status</h2>
+      <p class="subtitle">Follow the progress of submitted campus reports.</p>
+    </div>
+
+    <div id="statusList" class="dashboard-vertical"></div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 QRPort. All rights reserved.</p>
+  </footer>
+
+  <script src="demo-data.js"></script>
+  <script>
+    const issues = getQRPortIssues();
+    const container = document.getElementById('statusList');
+
+    function getStatusClass(status) {
+      if (status === 'In Progress') return 'status-in-progress';
+      if (status === 'Resolved') return 'status-resolved';
+      return 'status-pending';
+    }
+
+    container.innerHTML = issues.map(item => `
+      <div class="card status-card ${getStatusClass(item.status)}">
+        <div class="issue-header">
+          <span class="ticket-id">${item.ticket}</span>
+          <span class="status-text">${item.status}</span>
+        </div>
+        <h3>${item.location}</h3>
+        <p class="status-detail">${item.category || 'General'} / ${item.problem || 'Unspecified issue'} / ${item.priority || 'Medium'} Priority</p>
+        <div class="progress-container">
+          <div class="progress-bar"></div>
+        </div>
+        <div class="issue-footer">
+          <small>Last updated: ${item.date}</small>
+        </div>
+      </div>
+    `).join('');
+  </script>
+</body>
+</html>

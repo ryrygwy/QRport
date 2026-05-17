@@ -1,67 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixora | Submit Issue</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QRPort | Submit Issue</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="dashboard-page"> <nav class="navbar">
+<body class="dashboard-page">
+  <nav class="navbar">
     <div class="nav-brand">
-      <img src="logo.png" alt="Fixora Logo" class="nav-logo">
-      <span>FIXORA</span>
+      <img src="logo.png" alt="QRPort Logo" class="nav-logo">
+      <span>QRPort</span>
     </div>
-    <a href="dashboard.html">Back to Dashboard</a>
+    <a href="user-dashboard.html">Reporter Portal</a>
   </nav>
 
   <main class="dashboard">
-    <div class="login-card report-card"> <h2 style="color: #fff; margin-bottom: 10px;">Report an Issue</h2>
-      <p style="color: #ccc; margin-bottom: 25px;">Enter details to log a defect for STI Dasmariñas</p>
-      
+    <div class="panel-card report-card">
+      <h2>Report an Issue</h2>
+      <p class="form-intro">Enter details to log a facility issue for any campus.</p>
+
       <form id="issueForm" class="form-left">
-          <label style="display: block; text-align: left; margin-bottom: 5px; color: #fff;">Location</label>
-          <input type="text" id="location" placeholder="e.g., Classroom 204" required>
-          
-          <label style="display: block; text-align: left; margin-bottom: 5px; color: #fff; margin-top: 15px;">Description</label>
-          <textarea id="description" placeholder="Describe the issue..." rows="5" required></textarea>
-          
-          <button type="submit" class="submit-btn">Submit Issue</button>
+        <label for="category">Area Category</label>
+        <select id="category" required>
+          <option value="" selected disabled>Select an area</option>
+          <option value="Classroom">Classroom</option>
+          <option value="Office">Office</option>
+          <option value="Laboratory">Laboratory</option>
+          <option value="Library">Library</option>
+          <option value="Restroom">Restroom</option>
+          <option value="Hallway">Hallway</option>
+        </select>
+
+        <label for="location">Room or Exact Location</label>
+        <input type="text" id="location" placeholder="e.g., Room 204, 2nd Floor" required>
+
+        <label for="problem">Problem Type</label>
+        <select id="problem" required disabled>
+          <option value="" selected>Select an area first</option>
+        </select>
+
+        <label for="priority">Priority Level</label>
+        <select id="priority" required>
+          <option value="" selected disabled>Select priority</option>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+
+        <label for="description">Additional Details <span class="optional-label">Optional</span></label>
+        <textarea id="description" placeholder="Add anything maintenance should know..." rows="4"></textarea>
+
+        <button type="submit" class="submit-btn">Submit Issue</button>
       </form>
 
-      <div style="margin-top: 25px;">
-        <a href="dashboard.html" class="back-link">← Back to Dashboard</a>
+      <div class="form-actions">
+        <a href="user-dashboard.html" class="back-link">&larr; Back to Reporter Portal</a>
       </div>
     </div>
   </main>
 
   <footer class="site-footer">
-    <p>© 2026 Fixora. All rights reserved.</p>
+    <p>&copy; 2026 QRPort. All rights reserved.</p>
   </footer>
 
+  <script src="demo-data.js"></script>
   <script>
+    const problemOptions = {
+      Classroom: [
+        'Broken chair or desk',
+        'Projector or display issue',
+        'Lighting issue',
+        'Air conditioning issue',
+        'Door or lock problem'
+      ],
+      Office: [
+        'Computer or printer issue',
+        'Air conditioning issue',
+        'Electrical outlet problem',
+        'Furniture damage',
+        'Door or lock problem'
+      ],
+      Laboratory: [
+        'Equipment malfunction',
+        'Plumbing leak',
+        'Electrical issue',
+        'Ventilation problem',
+        'Safety hazard'
+      ],
+      Library: [
+        'Lighting issue',
+        'Air conditioning issue',
+        'Furniture damage',
+        'Computer station issue',
+        'Noise or access concern'
+      ],
+      Restroom: [
+        'Plumbing leak',
+        'Clogged fixture',
+        'No water supply',
+        'Broken door or lock',
+        'Sanitation supply issue'
+      ],
+      Hallway: [
+        'Flooring damage',
+        'Lighting issue',
+        'Obstruction or safety hazard',
+        'Signage issue',
+        'Ceiling or wall damage'
+      ]
+    };
+
+    const categorySelect = document.getElementById('category');
+    const problemSelect = document.getElementById('problem');
+    const prioritySelect = document.getElementById('priority');
+
+    categorySelect.addEventListener('change', function() {
+      const options = problemOptions[this.value] || [];
+
+      problemSelect.innerHTML = '<option value="" selected disabled>Select a problem</option>';
+      options.forEach(function(option) {
+        const problemOption = document.createElement('option');
+        problemOption.value = option;
+        problemOption.textContent = option;
+        problemSelect.appendChild(problemOption);
+      });
+
+      problemSelect.disabled = options.length === 0;
+    });
+
     document.getElementById('issueForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      
-      let existingData = JSON.parse(localStorage.getItem('fixora_data') || '[]');
-      
-      // Sequential logic: ID is simply current count + 1
+
+      let existingData = getQRPortIssues();
       const nextTicketNumber = existingData.length + 1;
 
       const newReport = {
         ticket: "#" + nextTicketNumber,
+        category: categorySelect.value,
+        problem: problemSelect.value,
+        priority: prioritySelect.value,
         location: document.getElementById('location').value,
-        description: document.getElementById('description').value,
+        description: document.getElementById('description').value || 'No additional details provided.',
         date: new Date().toLocaleDateString(),
         status: 'Pending'
       };
 
       existingData.unshift(newReport);
-      localStorage.setItem('fixora_data', JSON.stringify(existingData));
+      saveQRPortIssues(existingData);
+      saveLastTicket(newReport);
 
-      alert("Ticket " + newReport.ticket + " submitted successfully!");
-      window.location.href = "dashboard.html";
+      window.location.href = "ticket-success.html";
     });
-
   </script>
 </body>
 </html>

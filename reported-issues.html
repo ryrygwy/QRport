@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fixora | Reported Issues</title>
+  <title>QRPort | Reported Issues</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="dashboard-page">
-
   <nav class="navbar">
     <div class="nav-brand">
-      <img src="logo.png" alt="Fixora Logo" class="nav-logo">
-      <span>FIXORA</span>
+      <img src="logo.png" alt="QRPort Logo" class="nav-logo">
+      <span>QRPort</span>
     </div>
     <a href="dashboard.html">Back to Dashboard</a>
   </nav>
@@ -19,35 +18,72 @@
   <main class="dashboard">
     <div class="dashboard-header">
       <h2>Reporting History</h2>
-      <p class="subtitle">Complete log of all campus issues at STI Dasmariñas.</p>
+      <p class="subtitle">Complete log of facility issues across your campus.</p>
     </div>
 
-    <div id="historyList" class="dashboard-vertical">
-      </div>
+    <div class="filter-bar">
+      <select id="statusFilter" aria-label="Filter by status">
+        <option value="All">All Statuses</option>
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Resolved">Resolved</option>
+      </select>
+      <select id="categoryFilter" aria-label="Filter by category">
+        <option value="All">All Areas</option>
+        <option value="Classroom">Classroom</option>
+        <option value="Office">Office</option>
+        <option value="Laboratory">Laboratory</option>
+        <option value="Library">Library</option>
+        <option value="Restroom">Restroom</option>
+        <option value="Hallway">Hallway</option>
+      </select>
+    </div>
+
+    <div id="historyList" class="dashboard-vertical"></div>
   </main>
 
   <footer class="site-footer">
-    <p>© 2026 Fixora. All rights reserved.</p>
+    <p>&copy; 2026 QRPort. All rights reserved.</p>
   </footer>
 
+  <script src="demo-data.js"></script>
   <script>
-    const issues = JSON.parse(localStorage.getItem('fixora_data') || '[]');
+    let issues = getQRPortIssues();
     const container = document.getElementById('historyList');
+    const statusFilter = document.getElementById('statusFilter');
+    const categoryFilter = document.getElementById('categoryFilter');
 
-    if(issues.length === 0) {
-      container.innerHTML = `
-        <div class="card" style="text-align:center; opacity:0.6;">
-          <p>No issues reported yet. Your history will appear here.</p>
-        </div>`;
-    } else {
-      // Use map and join for better performance
-      container.innerHTML = issues.map(item => `
+    function getFilteredIssues() {
+      return issues.filter(function(item) {
+        const statusMatches = statusFilter.value === 'All' || item.status === statusFilter.value;
+        const categoryMatches = categoryFilter.value === 'All' || item.category === categoryFilter.value;
+        return statusMatches && categoryMatches;
+      });
+    }
+
+    function renderIssues() {
+      const filteredIssues = getFilteredIssues();
+
+      if (filteredIssues.length === 0) {
+        container.innerHTML = `
+          <div class="card empty-card">
+            <p>No tickets match the selected filters.</p>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = filteredIssues.map(item => `
         <div class="card issue-card">
           <div class="issue-header">
             <span class="ticket-id">${item.ticket}</span>
             <span class="status-badge">${item.status}</span>
           </div>
           <h3>${item.location}</h3>
+          <div class="issue-meta">
+            <span>${item.category || 'General'}</span>
+            <span>${item.problem || 'Unspecified issue'}</span>
+            <span>${item.priority || 'Medium'} Priority</span>
+          </div>
           <p class="issue-desc">${item.description}</p>
           <div class="issue-footer">
             <small>Reported on: ${item.date}</small>
@@ -56,6 +92,9 @@
       `).join('');
     }
 
+    statusFilter.addEventListener('change', renderIssues);
+    categoryFilter.addEventListener('change', renderIssues);
+    renderIssues();
   </script>
 </body>
 </html>

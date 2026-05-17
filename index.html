@@ -3,80 +3,113 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
-  <title>Fixora | Campus Issue Reporting</title>
+  <title>QRPort | Campus Issue Reporting</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
-  <header class="hero">
-  <img src="logo.png" alt="Fixora Logo" class="logo">
-  <h1>FIXORA</h1>
-  <p>Student‑first campus issue reporting with fast tracking</p>
-
-  <div class="hero-buttons">
-    <a href="login.html" class="cta">Login</a>
-    <a href="mailto:endfield@gmail.com?subject=Fixora Demo Request" class="cta secondary">Request a Demo</a>
-  </div>
-  </header>
-
-  <section class="features">
-    <h2>Why Fixora?</h2>
-    <div class="cards">
-      <div class="card">⚡ Report issues in under 1 minute</div>
-      <div class="card">🔍 Equipment-specific QR reporting</div>
-      <div class="card">📊 Faster repairs through organized tracking</div>
-      <div class="card">💸 Affordable alternative to complex systems</div>
-    </div>
-  </section>
-  <section class="split-section">
-  <div class="split-container">
-    
-    <div class="text-column">
-      <div class="transparent-block">
-        <h2>See Fixora in Action</h2>
-        <p>
-          Our interface is designed for speed. Watch how easily students can 
-          pinpoint maintenance issues and how quickly administrators can 
-          assign tasks to the right department.
+<body class="landing-page">
+  <main class="landing-main">
+    <section class="landing-hero">
+      <div class="hero-shell">
+        <img src="logo.png" alt="QRPort Logo" class="logo">
+        <p class="eyebrow">Campus facility reporting</p>
+        <h1>QRPort</h1>
+        <p class="hero-copy">
+          Scan a QR code, report an issue, and keep every repair moving in one simple dashboard.
         </p>
+
+        <div class="portal-grid">
+          <a href="user-dashboard.html" class="portal-card reporter-portal">
+            <span>Reporter Portal</span>
+            <strong>Report an Issue</strong>
+            <small>Open the QR-style flow for students, staff, or visitors.</small>
+          </a>
+          <a href="dashboard.html" class="portal-card admin-portal">
+            <span>Admin Portal</span>
+            <strong>Admin Dashboard</strong>
+            <small>Review tickets, filter reports, and update repair progress.</small>
+          </a>
+        </div>
       </div>
-      <div class="transparent-block">
-        <h2>Real-Time Tracking</h2>
-        <p>
-          No more "lost" emails. Every report gets a unique ID and a live 
-          status bar so everyone stays in the loop.
-        </p>
+    </section>
+
+    <section class="quick-flow" aria-label="How QRPort works">
+      <div class="flow-grid">
+        <article class="flow-step">
+          <span>01</span>
+          <h2>Scan</h2>
+          <p>Open the issue form from any posted QR tag.</p>
+        </article>
+        <article class="flow-step">
+          <span>02</span>
+          <h2>Report</h2>
+          <p>Submit the location and details in seconds.</p>
+        </article>
+        <article class="flow-step">
+          <span>03</span>
+          <h2>Track</h2>
+          <p>Monitor every ticket until it is resolved.</p>
+        </article>
       </div>
-    </div>
+    </section>
 
-    <div class="video-column">
-      <div class="video-frame">
-        <video autoplay loop muted playsinline controls>
-          <source src="preview-video.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+    <section class="demo-snapshot" aria-label="Live demo snapshot">
+      <div class="snapshot-panel">
+        <div>
+          <p class="snapshot-label">Live demo snapshot</p>
+          <h2>Campus tickets at a glance</h2>
+        </div>
+        <div class="snapshot-metrics">
+          <div>
+            <strong id="openCount">0</strong>
+            <span>Open</span>
+          </div>
+          <div>
+            <strong id="progressCount">0</strong>
+            <span>In Progress</span>
+          </div>
+          <div>
+            <strong id="resolvedCount">0</strong>
+            <span>Resolved</span>
+          </div>
+        </div>
+        <a href="reported-issues.html" class="snapshot-link">View sample tickets</a>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-  <section class="about">
-    <h2>How It Works</h2>
-    <p>
-      Students submit issues via mobile. Administrators track, prioritize,
-      and resolve requests in one organized dashboard.
-    </p>
-  </section>
+    <section class="qr-demo" aria-label="QR report entry">
+      <a href="submit-issue.html" class="qr-card">
+        <span class="qr-pattern" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+        <span class="qr-copy">
+          <strong>QR report entry</strong>
+          <small>For the booth demo, this preview represents a posted QR tag that opens the report form.</small>
+        </span>
+      </a>
+    </section>
+  </main>
 
-  <section id="contact" class="contact">
-    <h2>Get in Touch</h2>
-    <p>Email: <strong>endfield@gmail.com</strong></p>
-    <p>Schedule a demo to improve campus maintenance today.</p>
-  </section>
-
-  <footer>
-    <p>© 2026 Fixora. All rights reserved.</p>
+  <footer class="landing-footer">
+    <p>&copy; 2026 QRPort. Built for every campus.</p>
   </footer>
 
+  <script src="demo-data.js"></script>
+  <script>
+    const issues = getQRPortIssues();
+    const resolved = issues.filter(issue => issue.status === 'Resolved').length;
+    const inProgress = issues.filter(issue => issue.status === 'In Progress').length;
+
+    document.getElementById('openCount').textContent = issues.length - resolved;
+    document.getElementById('progressCount').textContent = inProgress;
+    document.getElementById('resolvedCount').textContent = resolved;
+  </script>
 </body>
 </html>

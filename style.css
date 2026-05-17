@@ -34,12 +34,11 @@ html, body {
   margin-bottom: 10px; 
 } 
 
-/* Brighter Purple Background */ 
-body { 
-  /* Rich 3-stop gradient */ 
-  background: linear-gradient(135deg, #0b001a 0%, #4b0082 50%, #7b2cbf 100%);
-  background-attachment: fixed; /* CRITICAL: Prevents the background from stretching/breaking */ 
-  color: #f0f0f0; 
+body {
+    /* Rich 3-stop midnight navy & slate gradient */
+    background: linear-gradient(135deg, #050814 0%, #0b1528 50%, #12223a 100%);
+    background-attachment: fixed; /* CRITICAL: Prevents the background from stretching/breaking */
+    color: #f0f0f0;
 }
 
 /* Footer Fix: Ensures it is part of the scroll, not fixed */ 
@@ -77,11 +76,11 @@ body {
   width: 100%; /* Fill the container */ 
 }
 
-.card.vertical-row:hover { 
-  transform: scale(1.02); 
-  background: rgba(255, 255, 255, 0.15); 
-  border-color: #bb86fc; /* Accent highlight */ 
-} 
+.card.vertical-row:hover {
+    transform: scale(1.02);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #00e5ff; /* QRport Electric Cyan highlight */
+}
 
 /* Remove that pesky blue link styling again just in case */ 
 .card-link {
@@ -173,10 +172,14 @@ body {
   padding: 100px 20px 80px; /* Added a bit more top padding for breathing room */ 
 } 
 
-.logo { 
-  width: 120px;
-  margin-bottom: 20px; 
-} 
+.logo {   
+    width: 220px;         /* Increased from 120px to make the icon prominent */
+    height: auto;         /* Maintains original aspect ratio without distortion */
+    max-width: 100%;      /* Ensures responsiveness on smaller mobile screens */
+    margin-bottom: 15px;  /* Clean spacing below the image */
+    display: inline-block;
+    vertical-align: middle;
+}
 
 .hero h1 { 
   font-size: 3rem; 
@@ -191,27 +194,26 @@ body {
 
 /* 4. Buttons */ 
 .cta {
-  display: inline-block; 
-  padding: 14px 30px;
-  /* Made slightly larger for a better click target */ 
-  border-radius: 30px; 
-  text-decoration: none; 
-  font-weight: bold;
-  transition: all 0.3s ease;
-  margin: 8px;
-  /* Primary Button Styling (Applied by default) */ 
-  background: #ffffff; 
-  color: #1a0033; /* Deep purple text to tie into the theme */ 
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15); /* Soft white glow */ 
-  border: 2px solid transparent; 
+    display: inline-block;
+    padding: 14px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin: 8px;
+    /* Primary Button Styling */
+    background: #ffffff;
+    color: #050814; /* Deep midnight text to tie into the new theme */
+    box-shadow: 0 4px 15px rgba(0, 229, 255, 0.15); /* Soft cyan glow */
+    border: 2px solid transparent;
 }
 
-.cta:hover { 
-  background: #bb86fc; /* Electric purple hover state */ 
-  color: #ffffff;
-  transform: translateY(-2px); 
-  box-shadow: 0 6px 20px rgba(187, 134, 252, 0.4); /* Purple glow on hover */ 
-} 
+.cta:hover {
+    background: #00e5ff; /* Electric cyan hover state */
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 229, 255, 0.4); /* Cyan glow on hover */
+}
 
 /* Secondary Button Styling (Request a Demo) */ 
 .cta.secondary { 
@@ -228,7 +230,7 @@ body {
   transform: translateY(-2px);
 } 
 
-/* 5. Video Preview Section (The Split Layout) */
+/* 5. Split Content Section */
 .split-section { 
   padding: 80px 10%; 
   background: transparent; 
@@ -267,25 +269,6 @@ body {
   color: #cccccc;
 }
 
-.video-column { 
-  flex: 0 0 550px; 
-} 
-
-.video-frame { 
-  background: #000000;
-  border-radius: 25px; 
-  padding: 8px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-  overflow: hidden; 
-  border: 1px solid rgba(255, 255, 255, 0.1);
-} 
-
-.video-frame video { 
-  width: 100%; 
-  border-radius: 18px; 
-  display: block; 
-} 
-
 /* 6. Features & Cards */ 
 section { 
   padding: 80px 20px;
@@ -323,16 +306,8 @@ section {
   box-shadow: 0 6px 18px rgba(0,0,0,0.4); 
 }
 
-/* 7. Login Page (Glassmorphism Fix) */ 
-.login-body { 
-  min-height: 100vh;
-  background: linear-gradient(135deg, #0f0f0f, #4b0082); 
-  display: flex;
-  justify-content: center;
-  align-items: center; 
-} 
-
-.login-card { 
+/* 7. Shared Panel Cards */ 
+.panel-card { 
   background: rgba(255, 255, 255, 0.05); /* Fixed: Was solid white */ 
   backdrop-filter: blur(10px); 
   padding: 40px; 
@@ -344,16 +319,17 @@ section {
   box-shadow: 0 12px 30px rgba(0,0,0,0.25); 
 } 
 
-.login-card h1 { 
+.panel-card h1 { 
   color: #fff;
 } 
 
-.login-card p { 
+.panel-card p { 
   color: #ccc;
   margin-bottom: 20px; 
 }
 
-.login-card input { 
+.panel-card input,
+.panel-card select { 
   width: 100%; 
   padding: 12px; 
   margin: 8px 0;
@@ -363,7 +339,25 @@ section {
   color: #fff; 
 } 
 
-.login-card button { 
+.panel-card select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #00e5ff 50%), linear-gradient(135deg, #00e5ff 50%, transparent 50%);
+  background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
+  background-repeat: no-repeat;
+  background-size: 6px 6px, 6px 6px;
+}
+
+.panel-card select:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.panel-card option {
+  background: #050814;
+  color: #ffffff;
+}
+
+.panel-card button { 
   width: 100%;
   padding: 12px; 
   margin-top: 12px; 
@@ -374,21 +368,6 @@ section {
   font-weight: bold; 
   cursor: pointer; 
 } 
-
-.alt-login {
-  margin-top: 20px; 
-} 
-
-.alt { 
-  width: 100%; 
-  margin-top: 8px;
-  background: rgba(255, 255, 255, 0.1); 
-  color: #fff; 
-  border: 1px solid rgba(255, 255, 255, 0.2); 
-  padding: 10px; 
-  border-radius: 25px; 
-  cursor: pointer; 
-}
 
 /* 8. Footer */ 
 footer { 
@@ -402,7 +381,7 @@ footer {
 /* Specific styling for the Report Form Card */ 
 .report-card { 
   width: 100% !important; 
-  max-width: 500px !important; /* Wider than the login card */ 
+  max-width: 500px !important; 
   padding: 40px; 
 }
 
@@ -469,10 +448,10 @@ textarea {
   margin-bottom: 10px;
 } 
 
-.ticket-id { 
-  font-weight: bold; 
-  color: #bb86fc; /* Purple accent */ 
-  font-size: 0.9rem; 
+.ticket-id {
+    font-weight: bold;
+    color: #00e5ff; /* Cyan accent */
+    font-size: 0.9rem;
 }
 
 .status-badge { 
@@ -489,6 +468,22 @@ textarea {
   margin: 10px 0;
   font-size: 0.95rem; 
 } 
+
+.issue-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.issue-meta span {
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(0, 229, 255, 0.1);
+  color: #8ff4ff;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
 
 .issue-footer { 
   border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -523,17 +518,131 @@ textarea {
   overflow: hidden; 
 } 
 
-.progress-bar { 
-  height: 100%; 
-  border-radius: 10px;
-  transition: width 1s ease-in-out; /* Makes the bar "slide" into place */
-  box-shadow: 0 0 10px rgba(187, 134, 252, 0.3);
-} 
+.progress-bar {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 1s ease-in-out;
+    background: #00e5ff; /* Force the bar itself to cyan if inline styles don't overwrite it */
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+}
+
+.status-pending .status-text {
+  color: #ffb703;
+}
+
+.status-pending .progress-bar {
+  width: 15%;
+  background: #ffb703;
+}
+
+.status-in-progress .status-text {
+  color: #00e5ff;
+}
+
+.status-in-progress .progress-bar {
+  width: 50%;
+  background: #00e5ff;
+}
+
+.status-resolved .status-text {
+  color: #03dac6;
+}
+
+.status-resolved .progress-bar {
+  width: 100%;
+  background: #03dac6;
+}
 
 .status-card h3 {
   font-size: 1.1rem; 
   color: #fff; 
   margin-top: 5px; 
+}
+
+.status-detail {
+  color: #cccccc;
+  font-size: 0.88rem;
+  margin-top: 8px;
+}
+
+.success-card {
+  max-width: 520px !important;
+}
+
+.success-kicker {
+  color: #8ff4ff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px !important;
+  text-transform: uppercase;
+}
+
+.success-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.success-actions .cta {
+  margin: 0;
+}
+
+.filter-bar {
+  width: min(600px, 100%);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: -18px 0 24px;
+}
+
+.filter-bar select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  appearance: none;
+  background-color: rgba(0, 0, 0, 0.3);
+  background-image: linear-gradient(45deg, transparent 50%, #00e5ff 50%), linear-gradient(135deg, #00e5ff 50%, transparent 50%);
+  background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
+  background-repeat: no-repeat;
+  background-size: 6px 6px, 6px 6px;
+  color: #ffffff;
+  font-family: inherit;
+}
+
+.filter-bar option {
+  background: #050814;
+  color: #ffffff;
+}
+
+.status-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 18px 0 8px;
+}
+
+.status-actions button {
+  min-height: 38px;
+  padding: 9px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  transition: all 0.3s ease;
+}
+
+.status-actions button:hover {
+  border-color: #00e5ff;
+  background: rgba(0, 229, 255, 0.14);
+  color: #8ff4ff;
 }
 
 /* --- 9. MOBILE LAYOUT (CORRECTED & OPTIMIZED) --- */ 
@@ -547,12 +656,6 @@ textarea {
   .text-column, .transparent-block { 
     text-align: center; 
   }
-  
-  .video-column { 
-    flex: 0 0 auto; 
-    width: 100%; 
-    max-width: 450px; 
-  } 
   
   .navbar {
     flex-direction: column;
@@ -577,7 +680,558 @@ textarea {
     padding: 60px 5%;
   }
   
-  .login-card, .report-card {
+  .panel-card, .report-card {
     padding: 25px 20px;
+  }
+}
+
+/* --- 10. QRPort Consistency Pass --- */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.dashboard-header {
+  max-width: 720px;
+}
+
+.dashboard h2 {
+  color: #ffffff;
+}
+
+.subtitle {
+  color: #cccccc;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.navbar {
+  padding: 12px 30px;
+  background: rgba(5, 8, 20, 0.74);
+}
+
+.navbar a {
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  font-weight: bold;
+  padding: 10px 16px;
+  transition: all 0.3s ease;
+}
+
+.navbar a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
+  opacity: 1;
+}
+
+.nav-logo {
+  height: 42px;
+  filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.18));
+}
+
+.card,
+.card.vertical-row,
+.panel-card,
+.issue-card,
+.status-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+}
+
+.card.vertical-row:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #00e5ff;
+  box-shadow: 0 14px 34px rgba(0, 229, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.icon {
+  background: #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 4px 15px rgba(0, 229, 255, 0.15);
+  color: #050814;
+  font-size: 1.05rem;
+  font-weight: 800;
+  padding: 14px 0;
+}
+
+.panel-card {
+  max-width: 360px;
+}
+
+.panel-card h1 {
+  letter-spacing: 1px;
+}
+
+.panel-card input,
+.panel-card select,
+textarea {
+  font-family: inherit;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.panel-card input:focus,
+.panel-card select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #00e5ff;
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.14);
+}
+
+.panel-card button,
+.submit-btn {
+  background: #ffffff;
+  border: 2px solid transparent;
+  color: #050814;
+  transition: all 0.3s ease;
+}
+
+.panel-card button:hover,
+.submit-btn:hover {
+  background: #00e5ff;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 229, 255, 0.35);
+}
+
+.report-card {
+  text-align: left;
+}
+
+.report-card h2 {
+  color: #ffffff;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.form-intro {
+  color: #cccccc;
+  line-height: 1.6;
+  margin-bottom: 25px !important;
+  text-align: center;
+}
+
+.form-left label {
+  color: #ffffff;
+  display: block;
+  font-size: 0.92rem;
+  font-weight: bold;
+  margin: 16px 0 5px;
+  text-align: left;
+}
+
+.optional-label {
+  color: #8ff4ff;
+  font-size: 0.74rem;
+  font-weight: 700;
+  margin-left: 6px;
+  text-transform: uppercase;
+}
+
+.form-actions {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.status-badge {
+  background: rgba(0, 229, 255, 0.12);
+  border-radius: 999px;
+  color: #00e5ff;
+}
+
+.empty-card {
+  color: #cccccc;
+  opacity: 0.72;
+  text-align: center;
+}
+
+footer,
+.site-footer {
+  background: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 850px) {
+  .navbar a {
+    text-align: center;
+    width: 100%;
+  }
+
+  .card.vertical-row {
+    padding: 20px;
+  }
+}
+
+/* --- 11. Minimal Landing Page --- */
+.landing-page {
+  min-height: 100vh;
+}
+
+.landing-main {
+  flex: 1;
+}
+
+.landing-hero {
+  min-height: 68vh;
+  display: grid;
+  place-items: center;
+  padding: 76px 20px 44px;
+  text-align: center;
+}
+
+.hero-shell {
+  width: min(760px, 100%);
+  margin: 0 auto;
+}
+
+.hero-shell .logo {
+  width: 150px;
+  margin-bottom: 18px;
+  filter: drop-shadow(0 0 18px rgba(0, 229, 255, 0.16));
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 7px 14px;
+  border: 1px solid rgba(0, 229, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(0, 229, 255, 0.08);
+  color: #8ff4ff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-shell h1 {
+  margin-top: 18px;
+  color: #ffffff;
+  font-size: clamp(3.2rem, 8vw, 6.6rem);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.hero-copy {
+  max-width: 620px;
+  margin: 22px auto 24px;
+  color: #d0d0d0;
+  font-size: 1.16rem;
+  line-height: 1.7;
+}
+
+.landing-page .hero-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.landing-page .cta {
+  min-width: 150px;
+  margin: 0;
+}
+
+.portal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 28px auto 0;
+  max-width: 680px;
+}
+
+.portal-card {
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px;
+  text-align: left;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #ffffff;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s ease;
+}
+
+.portal-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 229, 255, 0.48);
+  background: rgba(0, 229, 255, 0.08);
+}
+
+.portal-card span {
+  color: #8ff4ff;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.portal-card strong {
+  display: block;
+  margin: 18px 0 8px;
+  font-size: 1.28rem;
+}
+
+.portal-card small {
+  color: #cccccc;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.reporter-portal {
+  border-color: rgba(0, 229, 255, 0.22);
+}
+
+.admin-portal {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.quick-flow,
+.demo-snapshot {
+  width: min(980px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 0;
+}
+
+.quick-flow {
+  margin-bottom: 18px;
+}
+
+.flow-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.flow-step {
+  min-height: 160px;
+  padding: 24px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
+}
+
+.flow-step span {
+  color: #00e5ff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.flow-step h2 {
+  margin: 16px 0 8px;
+  color: #ffffff;
+  font-size: 1.25rem;
+  letter-spacing: 0;
+}
+
+.flow-step p {
+  color: #cccccc;
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+
+.demo-snapshot {
+  margin-bottom: 70px;
+}
+
+.snapshot-panel {
+  display: grid;
+  grid-template-columns: 1.1fr 1.4fr auto;
+  gap: 24px;
+  align-items: center;
+  padding: 24px;
+  text-align: left;
+  background: rgba(0, 229, 255, 0.07);
+  border: 1px solid rgba(0, 229, 255, 0.18);
+  border-radius: 8px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.26);
+}
+
+.snapshot-label {
+  color: #8ff4ff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.snapshot-panel h2 {
+  margin-top: 8px;
+  color: #ffffff;
+  font-size: 1.35rem;
+  letter-spacing: 0;
+}
+
+.snapshot-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.snapshot-metrics div {
+  min-height: 82px;
+  padding: 16px;
+  background: rgba(5, 8, 20, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.snapshot-metrics strong {
+  display: block;
+  color: #ffffff;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.snapshot-metrics span {
+  display: block;
+  margin-top: 8px;
+  color: #cccccc;
+  font-size: 0.82rem;
+}
+
+.snapshot-link {
+  justify-self: end;
+  color: #ffffff;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid #00e5ff;
+  padding-bottom: 4px;
+}
+
+.snapshot-link:hover {
+  color: #00e5ff;
+}
+
+.qr-demo {
+  width: min(980px, calc(100% - 40px));
+  margin: -42px auto 72px;
+  padding: 0;
+}
+
+.qr-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 22px;
+  padding: 22px;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s ease;
+}
+
+.qr-card:hover {
+  border-color: rgba(0, 229, 255, 0.48);
+  background: rgba(0, 229, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.qr-pattern {
+  width: 92px;
+  height: 92px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 0 24px rgba(0, 229, 255, 0.18);
+}
+
+.qr-pattern span {
+  border-radius: 3px;
+  background: #050814;
+}
+
+.qr-pattern span:nth-child(2),
+.qr-pattern span:nth-child(4),
+.qr-pattern span:nth-child(9) {
+  background: #00e5ff;
+}
+
+.qr-copy strong {
+  display: block;
+  color: #ffffff;
+  font-size: 1.2rem;
+  margin-bottom: 6px;
+}
+
+.qr-copy small {
+  color: #cccccc;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.landing-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.22);
+}
+
+@media (max-width: 760px) {
+  .landing-hero {
+    min-height: auto;
+    padding: 58px 20px 34px;
+  }
+
+  .hero-shell .logo {
+    width: 120px;
+  }
+
+  .hero-shell h1 {
+    font-size: 3.25rem;
+  }
+
+  .hero-copy {
+    font-size: 1rem;
+  }
+
+  .landing-page .cta {
+    width: 100%;
+  }
+
+  .portal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flow-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .snapshot-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .snapshot-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .snapshot-link {
+    justify-self: start;
+  }
+
+  .filter-bar,
+  .status-actions,
+  .qr-card {
+    grid-template-columns: 1fr;
+  }
+
+  .qr-demo {
+    margin-top: -44px;
   }
 }

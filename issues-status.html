@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fixora | Issue Status</title>
+  <title>QRPort | Issue Status</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="dashboard-page">
-
   <nav class="navbar">
     <div class="nav-brand">
-      <img src="logo.png" alt="Fixora Logo" class="nav-logo">
-      <span>FIXORA</span>
+      <img src="logo.png" alt="QRPort Logo" class="nav-logo">
+      <span>QRPort</span>
     </div>
     <a href="dashboard.html">Back to Dashboard</a>
   </nav>
@@ -19,60 +18,104 @@
   <main class="dashboard">
     <div class="dashboard-header">
       <h2>Active Status</h2>
-      <p class="subtitle">Real-time progress of your tickets at STI Dasmariñas.</p>
+      <p class="subtitle">Real-time progress for every active campus ticket.</p>
     </div>
 
-    <div id="statusList" class="dashboard-vertical">
-      </div>
+    <div class="filter-bar">
+      <select id="statusFilter" aria-label="Filter by status">
+        <option value="All">All Statuses</option>
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Resolved">Resolved</option>
+      </select>
+      <select id="categoryFilter" aria-label="Filter by category">
+        <option value="All">All Areas</option>
+        <option value="Classroom">Classroom</option>
+        <option value="Office">Office</option>
+        <option value="Laboratory">Laboratory</option>
+        <option value="Library">Library</option>
+        <option value="Restroom">Restroom</option>
+        <option value="Hallway">Hallway</option>
+      </select>
+    </div>
+
+    <div id="statusList" class="dashboard-vertical"></div>
   </main>
 
   <footer class="site-footer">
-    <p>© 2026 Fixora. All rights reserved.</p>
+    <p>&copy; 2026 QRPort. All rights reserved.</p>
   </footer>
 
+  <script src="demo-data.js"></script>
   <script>
-    const issues = JSON.parse(localStorage.getItem('fixora_data') || '[]');
+    let issues = getQRPortIssues();
     const container = document.getElementById('statusList');
+    const statusFilter = document.getElementById('statusFilter');
+    const categoryFilter = document.getElementById('categoryFilter');
 
-    if(issues.length === 0) {
-      container.innerHTML = `
-        <div class="card" style="text-align:center; opacity:0.6;">
-          <p>No active tickets found. Report an issue to see its progress.</p>
-        </div>`;
-    } else {
-      container.innerHTML = issues.map(item => {
-        // Logic to determine bar width based on status
-        let progressWidth = "15%";
-        let statusColor = "#ffb703"; // Yellow for Pending
-        
-        if(item.status === "In Progress") {
-            progressWidth = "50%";
-            statusColor = "#bb86fc"; 
-        } else if(item.status === "Resolved") {
-            progressWidth = "100%";
-            statusColor = "#03dac6"; // Teal for Success
-        }
-
-        return `
-          <div class="card status-card">
-            <div class="issue-header">
-              <span class="ticket-id">${item.ticket}</span>
-              <span class="status-text" style="color: ${statusColor}">${item.status}</span>
-            </div>
-            <h3>${item.location}</h3>
-            
-            <div class="progress-container">
-              <div class="progress-bar" style="width: ${progressWidth}; background: ${statusColor}"></div>
-            </div>
-            
-            <div class="issue-footer">
-               <small>Last updated: ${item.date}</small>
-            </div>
-          </div>
-        `;
-      }).join('');
+    function getStatusClass(status) {
+      if (status === 'In Progress') return 'status-in-progress';
+      if (status === 'Resolved') return 'status-resolved';
+      return 'status-pending';
     }
 
+    function getFilteredIssues() {
+      return issues.filter(function(item) {
+        const statusMatches = statusFilter.value === 'All' || item.status === statusFilter.value;
+        const categoryMatches = categoryFilter.value === 'All' || item.category === categoryFilter.value;
+        return statusMatches && categoryMatches;
+      });
+    }
+
+    function renderIssues() {
+      const filteredIssues = getFilteredIssues();
+
+      if (filteredIssues.length === 0) {
+        container.innerHTML = `
+          <div class="card empty-card">
+            <p>No tickets match the selected filters.</p>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = filteredIssues.map(item => `
+        <div class="card status-card ${getStatusClass(item.status)}">
+          <div class="issue-header">
+            <span class="ticket-id">${item.ticket}</span>
+            <span class="status-text">${item.status}</span>
+          </div>
+          <h3>${item.location}</h3>
+          <p class="status-detail">${item.category || 'General'} / ${item.problem || 'Unspecified issue'} / ${item.priority || 'Medium'} Priority</p>
+
+          <div class="progress-container">
+            <div class="progress-bar"></div>
+          </div>
+
+          <div class="status-actions" aria-label="Update ${item.ticket} status">
+            <button type="button" data-ticket="${item.ticket}" data-status="Pending">Pending</button>
+            <button type="button" data-ticket="${item.ticket}" data-status="In Progress">In Progress</button>
+            <button type="button" data-ticket="${item.ticket}" data-status="Resolved">Resolved</button>
+          </div>
+
+          <div class="issue-footer">
+            <small>Last updated: ${item.date}</small>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    container.addEventListener('click', function(event) {
+      const button = event.target.closest('button[data-ticket]');
+
+      if (!button) return;
+
+      issues = updateTicketStatus(button.dataset.ticket, button.dataset.status);
+      renderIssues();
+    });
+
+    statusFilter.addEventListener('change', renderIssues);
+    categoryFilter.addEventListener('change', renderIssues);
+    renderIssues();
   </script>
 </body>
 </html>

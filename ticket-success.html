@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QRPort | Ticket Submitted</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-page">
+  <nav class="navbar">
+    <div class="nav-brand">
+      <img src="logo.png" alt="QRPort Logo" class="nav-logo">
+      <span>QRPort</span>
+    </div>
+    <a href="user-dashboard.html">Reporter Portal</a>
+  </nav>
+
+  <main class="dashboard">
+    <div class="panel-card success-card">
+      <p class="success-kicker">Ticket submitted</p>
+      <h2 id="ticketNumber">Ticket Ready</h2>
+      <p id="ticketSummary" class="form-intro">Your report has been added to the demo queue.</p>
+
+      <div class="success-actions">
+        <a href="user-status.html" class="cta">View Status</a>
+        <a href="submit-issue.html" class="cta secondary">Submit Another</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 QRPort. All rights reserved.</p>
+  </footer>
+
+  <script src="demo-data.js"></script>
+  <script>
+    const ticket = getLastTicket();
+
+    if (ticket) {
+      document.getElementById('ticketNumber').textContent = ticket.ticket + ' submitted';
+      document.getElementById('ticketSummary').textContent = ticket.priority + ' priority ' + ticket.problem + ' at ' + ticket.location + '.';
+    }
+  </script>
+</body>
+</html>
