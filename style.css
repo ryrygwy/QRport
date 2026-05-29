@@ -1,9 +1,11 @@
+/* --- GLOBAL RESET & FIX --- */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* Ensure the body can grow and doesn't trap the footer */
 html, body { 
   height: auto; 
   min-height: 100%; 
@@ -11,9 +13,12 @@ html, body {
   flex-direction: column; 
 } 
 
+/* Dashboard Centering Fix */ 
 .dashboard { 
   flex: 1;
+  /* Pushes footer to the bottom if content is short */ 
   text-align: center;
+  /* Centers the H2 and Subtitle */
   padding: 60px 20px; 
   display: flex; 
   flex-direction: column; 
@@ -30,11 +35,13 @@ html, body {
 } 
 
 body {
+    /* Rich 3-stop midnight navy & slate gradient */
     background: linear-gradient(135deg, #050814 0%, #0b1528 50%, #12223a 100%);
-    background-attachment: fixed;
+    background-attachment: fixed; /* CRITICAL: Prevents the background from stretching/breaking */
     color: #f0f0f0;
 }
 
+/* Footer Fix: Ensures it is part of the scroll, not fixed */ 
 .site-footer {
   background: rgba(0, 0, 0, 0.3);
   color: rgba(255, 255, 255, 0.5); 
@@ -42,9 +49,11 @@ body {
   text-align: center; 
   width: 100%; 
   margin-top: auto;
+  /* Keeps it at the bottom of the page content */ 
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 } 
 
+/* Vertical Button Adjustments */ 
 .dashboard-vertical { 
   width: 100%; 
   max-width: 600px;
@@ -53,45 +62,53 @@ body {
   gap: 15px;
 } 
 
+/* Ensure the card container handles the layout properly */ 
 .card.vertical-row { 
   display: flex; 
   align-items: center;
+  /* Vertical centering of emoji and text */ 
   text-align: left;
   padding: 25px; 
   background: rgba(255, 255, 255, 0.08); 
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.1); 
   transition: 0.3s ease; 
-  width: 100%;
+  width: 100%; /* Fill the container */ 
 }
 
 .card.vertical-row:hover {
     transform: scale(1.02);
     background: rgba(255, 255, 255, 0.15);
-    border-color: #00e5ff;
+    border-color: #00e5ff; /* QRport Electric Cyan highlight */
 }
 
+/* Remove that pesky blue link styling again just in case */ 
 .card-link {
   text-decoration: none !important;
   color: inherit; 
   display: block; 
 } 
 
+/* Optional: Ensure the text doesn't turn purple/blue after being clicked */
 .card-link:visited { 
   color: inherit;
 } 
 
+/* Prevent emoji squishing and fix size */
 .icon { 
-  font-size: 2.5rem;
+  font-size: 2.5rem; /* Make it large */ 
   margin-right: 25px;
-  flex-shrink: 0;
+  /* Space between emoji and text */ 
+  flex-shrink: 0; /* CRITICAL: Prevents the emoji from compressing */ 
   min-width: 50px;
-  text-align: center;
-  line-height: 1;
+  /* Ensures consistent alignment */ 
+  text-align: center; /* Keeps emoji centered in its space */ 
+  line-height: 1; /* Prevents weird vertical spacing */ 
 }
 
+/* The text container */ 
 .card-content { 
-  flex: 1;
+  flex: 1; /* Takes up the remaining space after the emoji */ 
 } 
 
 .card-content h3 { 
@@ -104,6 +121,7 @@ body {
   font-size: 0.95rem; 
 } 
 
+/* Existing Navbar and Logo styles maintained for consistency */ 
 .navbar { 
   padding: 10px 30px;
   background: rgba(0, 0, 0, 0.5); 
@@ -116,7 +134,7 @@ body {
 
 .navbar a { 
   text-decoration: none; 
-  color: #fff;
+  color: #fff; /* Fixed: was dark grey */ 
   font-size: 0.9rem; 
   transition: opacity 0.3s; 
 }
@@ -125,14 +143,16 @@ body {
   opacity: 0.7; 
 } 
 
+/* Navbar Branding Layout */ 
 .nav-brand {
   display: flex; 
   align-items: center; 
-  gap: 12px;
+  gap: 12px; /* Space between logo and text */ 
 }
 
 .nav-logo { 
   height: 35px;
+  /* Adjust height to match navbar scale */ 
   width: auto;
   filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
 } 
@@ -144,18 +164,19 @@ body {
   color: #fff;
 } 
 
+/* 3. Hero Section */ 
 .hero { 
-  background: transparent;
+  background: transparent; /* Let the body gradient shine through */ 
   color: #eaeaea; 
   text-align: center;
-  padding: 100px 20px 80px;
+  padding: 100px 20px 80px; /* Added a bit more top padding for breathing room */ 
 } 
 
 .logo {   
-    width: 220px;
-    height: auto;
-    max-width: 100%;
-    margin-bottom: 15px;
+    width: 220px;         /* Increased from 120px to make the icon prominent */
+    height: auto;         /* Maintains original aspect ratio without distortion */
+    max-width: 100%;      /* Ensures responsiveness on smaller mobile screens */
+    margin-bottom: 15px;  /* Clean spacing below the image */
     display: inline-block;
     vertical-align: middle;
 }
@@ -171,6 +192,7 @@ body {
   color: #d0d0d0;
 } 
 
+/* 4. Buttons */ 
 .cta {
     display: inline-block;
     padding: 14px 30px;
@@ -179,33 +201,36 @@ body {
     font-weight: bold;
     transition: all 0.3s ease;
     margin: 8px;
+    /* Primary Button Styling */
     background: #ffffff;
-    color: #050814;
-    box-shadow: 0 4px 15px rgba(0, 229, 255, 0.15);
+    color: #050814; /* Deep midnight text to tie into the new theme */
+    box-shadow: 0 4px 15px rgba(0, 229, 255, 0.15); /* Soft cyan glow */
     border: 2px solid transparent;
 }
 
 .cta:hover {
-    background: #00e5ff;
+    background: #00e5ff; /* Electric cyan hover state */
     color: #ffffff;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 229, 255, 0.4);
+    box-shadow: 0 6px 20px rgba(0, 229, 255, 0.4); /* Cyan glow on hover */
 }
 
+/* Secondary Button Styling (Request a Demo) */ 
 .cta.secondary { 
   background: transparent;
   color: #ffffff;
-  border: 2px solid rgba(255, 255, 255, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.4); /* Slightly muted white border */
   box-shadow: none; 
 }
 
 .cta.secondary:hover { 
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1); /* Frosted glass hover effect */ 
   border-color: #ffffff; 
   color: #ffffff; 
   transform: translateY(-2px);
 } 
 
+/* 5. Split Content Section */
 .split-section { 
   padding: 80px 10%; 
   background: transparent; 
@@ -244,9 +269,10 @@ body {
   color: #cccccc;
 }
 
+/* 6. Features & Cards */ 
 section { 
   padding: 80px 20px;
-  text-align: center;
+  text-align: center; /* Removed the default background here so it doesn't block the gradient */ 
 }
 
 .features { 
@@ -254,6 +280,7 @@ section {
 } 
 
 .about { 
+  /* Subtle glassmorphism band */
   background: rgba(255, 255, 255, 0.03); 
   backdrop-filter: blur(10px);
   border-top: 1px solid rgba(255, 255, 255, 0.05); 
@@ -279,8 +306,9 @@ section {
   box-shadow: 0 6px 18px rgba(0,0,0,0.4); 
 }
 
+/* 7. Shared Panel Cards */ 
 .panel-card { 
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.05); /* Fixed: Was solid white */ 
   backdrop-filter: blur(10px); 
   padding: 40px; 
   width: 100%;
@@ -303,6 +331,7 @@ section {
 .panel-card input,
 .panel-card select { 
   width: 100%; 
+  min-height: 48px;
   padding: 12px; 
   margin: 8px 0;
   border-radius: 8px; 
@@ -341,6 +370,7 @@ section {
   cursor: pointer; 
 } 
 
+/* 8. Footer */ 
 footer { 
   background: #111; 
   color: #888; 
@@ -349,14 +379,17 @@ footer {
   font-size: 0.9rem;
 } 
 
+/* Specific styling for the Report Form Card */ 
 .report-card { 
   width: 100% !important; 
   max-width: 500px !important; 
   padding: 40px; 
 }
 
+/* Style for Textarea to match your inputs */ 
 textarea { 
   width: 100%;
+  min-height: 112px;
   padding: 12px; 
   margin: 8px 0; 
   border-radius: 8px;
@@ -364,11 +397,13 @@ textarea {
   background: rgba(0, 0, 0, 0.3); 
   color: #fff;
   font-family: inherit; 
-  resize: none;
+  resize: none; /* Keeps the UI clean */ 
 } 
 
+/* The Submit Button */ 
 .submit-btn { 
   width: 100%; 
+  min-height: 50px;
   padding: 14px; 
   margin-top: 20px;
   border: none;
@@ -387,6 +422,7 @@ textarea {
   transform: translateY(-2px); 
 }
 
+/* Back Link Styling */ 
 .back-link { 
   text-decoration: none; 
   color: #ccc;
@@ -398,6 +434,7 @@ textarea {
   color: #fff;
 } 
 
+/* Styling for History Cards */ 
 .issue-card { 
   text-align: left; 
   width: 100%;
@@ -416,7 +453,7 @@ textarea {
 
 .ticket-id {
     font-weight: bold;
-    color: #00e5ff;
+    color: #00e5ff; /* Cyan accent */
     font-size: 0.9rem;
 }
 
@@ -458,6 +495,7 @@ textarea {
   opacity: 0.5; 
 }
 
+/* Progress Tracker Styling */ 
 .status-card { 
   text-align: left; 
   width: 100%;
@@ -487,7 +525,7 @@ textarea {
     height: 100%;
     border-radius: 10px;
     transition: width 1s ease-in-out;
-    background: #00e5ff;
+    background: #00e5ff; /* Force the bar itself to cyan if inline styles don't overwrite it */
     box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
 }
 
@@ -610,6 +648,7 @@ textarea {
   color: #8ff4ff;
 }
 
+/* --- 9. MOBILE LAYOUT (CORRECTED & OPTIMIZED) --- */ 
 @media (max-width: 850px) { 
   .split-container { 
     flex-direction: column; 
@@ -626,6 +665,7 @@ textarea {
     gap: 15px; 
   }
   
+  /* Heading sizes downscaling to fit mobile views cleanly */
   .hero h1 {
     font-size: 2.2rem;
   }
@@ -638,6 +678,7 @@ textarea {
     font-size: 1.8rem;
   }
   
+  /* Reduced horizontal paddings to prevent cramped content */
   .split-section {
     padding: 60px 5%;
   }
@@ -647,6 +688,7 @@ textarea {
   }
 }
 
+/* --- 10. QRPort Consistency Pass --- */
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -824,6 +866,7 @@ footer,
   }
 }
 
+/* --- 11. Minimal Landing Page --- */
 .landing-page {
   min-height: 100vh;
 }
@@ -903,6 +946,10 @@ footer,
   max-width: 680px;
 }
 
+.mobile-primary-action {
+  display: none;
+}
+
 .portal-card {
   min-height: 170px;
   display: flex;
@@ -925,6 +972,11 @@ footer,
   background: rgba(0, 229, 255, 0.08);
 }
 
+.reporter-portal {
+  background: rgba(0, 229, 255, 0.1);
+  border-color: rgba(0, 229, 255, 0.34);
+}
+
 .portal-card span {
   color: #8ff4ff;
   font-size: 0.74rem;
@@ -943,10 +995,6 @@ footer,
   color: #cccccc;
   font-size: 0.92rem;
   line-height: 1.5;
-}
-
-.reporter-portal {
-  border-color: rgba(0, 229, 255, 0.22);
 }
 
 .admin-portal {
@@ -1146,7 +1194,7 @@ footer,
 @media (max-width: 760px) {
   .landing-hero {
     min-height: auto;
-    padding: 58px 20px 34px;
+    padding: 42px 20px 28px;
   }
 
   .hero-shell .logo {
@@ -1159,14 +1207,37 @@ footer,
 
   .hero-copy {
     font-size: 1rem;
+    margin-bottom: 18px;
   }
 
   .landing-page .cta {
     width: 100%;
   }
 
+  .mobile-primary-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto 16px;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #050814;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(0, 229, 255, 0.22);
+  }
+
   .portal-grid {
     grid-template-columns: 1fr;
+    margin-top: 14px;
+  }
+
+  .portal-card {
+    min-height: 138px;
+    padding: 20px;
   }
 
   .flow-grid {
@@ -1193,5 +1264,25 @@ footer,
 
   .qr-demo {
     margin-top: -44px;
+  }
+
+  .dashboard {
+    padding: 34px 16px;
+  }
+
+  .dashboard-header {
+    margin-bottom: 24px;
+  }
+
+  .report-card {
+    padding: 24px 18px !important;
+  }
+
+  .form-intro {
+    margin-bottom: 18px !important;
+  }
+
+  .form-left label {
+    margin-top: 13px;
   }
 }
